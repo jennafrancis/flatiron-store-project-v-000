@@ -18,4 +18,10 @@ class Cart < ActiveRecord::Base
     end
     line_item
   end
+
+  def remove_items
+    items.each {|item|
+      item.inventory -= 1
+      item.save }
+  end
 end
