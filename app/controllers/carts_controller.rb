@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-	before_action :set_cart!, only: [:show]
+	before_action :set_cart!, only: [:show, :checkout]
 
 	def show
 
@@ -11,12 +11,15 @@ class CartsController < ApplicationController
 
 	def create
 		@cart = Cart.create(cart_params)
-		@cart.status = ""
+		@cart.status = "New"
 		current_user.current_cart = @cart
 	end
 
 	def checkout
-		current_user.current_cart.empty
+		@cart.status = "submitted"
+		redirect_to cart_path(@cart)
+		@cart.remove_items
+		current_user.current_cart = nil
 	end
 
 	private
