@@ -11,13 +11,14 @@ class CartsController < ApplicationController
 
 	def create
 		@cart = Cart.create(cart_params)
+		@cart.status = ""
 		current_user.current_cart = @cart
 	end
 
 	private
 
 	def set_cart!
-		Cart.find_by_id(params[:id])
+		@cart = Cart.find_by_id(params[:cart_id])
 	end
 
 	def cart_params
