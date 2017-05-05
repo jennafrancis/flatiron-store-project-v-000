@@ -10,4 +10,9 @@ module ApplicationHelper
  		end
  	end
 
+  def new_current_cart
+    current_user.current_cart = Cart.new
+    current_cart.save
+  end
+
 end

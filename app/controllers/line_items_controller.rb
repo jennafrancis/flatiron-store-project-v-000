@@ -1,10 +1,7 @@
 class LineItemsController < ApplicationController
 
 	def create
-		if !current_cart
-			current_user.current_cart = Cart.new
-			current_cart.save
-		end
+		new_current_cart unless current_cart
 		@line_item = current_cart.add_item(params[:item_id])
 		@line_item.save
 		current_cart.save
