@@ -2,7 +2,7 @@ class CartsController < ApplicationController
 	before_action :set_cart!, only: [:show, :checkout]
 
 	def show
-
+		
 	end
 
 	def new
