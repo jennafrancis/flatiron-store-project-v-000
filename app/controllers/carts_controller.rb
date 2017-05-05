@@ -11,21 +11,21 @@ class CartsController < ApplicationController
 
 	def create
 		@cart = Cart.create(cart_params)
-		@cart.status = "New"
+		@cart.status = "new"
 		current_user.current_cart = @cart
 	end
 
 	def checkout
 		@cart.status = "submitted"
-		redirect_to cart_path(@cart)
 		@cart.remove_items
 		current_user.current_cart = nil
+		redirect_to cart_path(@cart)
 	end
 
 	private
 
 	def set_cart!
-		@cart = Cart.find_by_id(params[:id])
+		@cart = Cart.find(params[:id])
 	end
 
 	def cart_params
